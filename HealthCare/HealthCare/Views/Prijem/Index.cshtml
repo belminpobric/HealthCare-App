@@ -1,0 +1,63 @@
+﻿@model PrijemVM
+@{
+    ViewData["Title"] = "Prijem";
+}
+<h2>Lista dosadasnjih prijema</h2>
+<br />
+<div>
+    <a asp-action="Dodaj" class="btn btn-primary" style="float:left; margin-right:20px;">Dodaj Prijem</a>
+    <a href="../PDF/PrijemiPDF" class="btn btn-primary" style="float:left">Generiraj pdf prijema</a>
+</div>
+<br />
+<br />
+<div >
+    <form asp-action="Index" class="form-inline" method="get">
+        <input asp-for="DatumOD" onchange="this.form.submit()" class="form-control" style="width:200px" />
+        <input asp-for="DatumDO" onchange="this.form.submit()" class="form-control" style="width:200px" />
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ime i prezime pacijenta</th>
+            <th>Datum i vrijeme prijema</th>
+            <th>Ime, prezime, sifra ljekara</th>
+            <th>Hitno</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    @foreach (var prijem in Model.Rows)
+    {
+        <tr>
+            <td>@prijem.ImePrezimePacijent</td>
+            <td>@prijem.DatumVrijemePrijema.ToShortDateString() @prijem.DatumVrijemePrijema.ToShortTimeString()</td>
+            <td>@prijem.ImePrezimeLjekar</td>
+            @if (prijem.IsHitno)
+            {
+                <td><a class="btn btn-success" style="color:white" href="#">DA</a></td>
+
+            }
+            else
+            {
+                <td><a class="btn btn-danger" style="color:white" href="#">NE</a></td>
+            }
+            <td>
+                <a class="btn btn-primary" asp-action="Izmijeni" asp-route-id="@prijem.ID">Izmijeni</a>
+                <a class="btn btn-danger" asp-action="Otkazi" asp-route-id="@prijem.ID">Otkazi</a>
+                @if (prijem.NalazID == 0)
+                {
+                    <a class="btn btn-success" asp-action="Nalaz" asp-route-id="@prijem.ID">Kreiraj nalaz</a>
+                }
+                else
+                {
+                    <a class="btn btn-success ajax-ucitaj-nalaz" asp-action="PregledajNalaz" asp-route-id="@prijem.NalazID">Pregledaj nalaz</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+
+</script>

@@ -1,0 +1,77 @@
+﻿@model PrijemVM
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lista prijema pacijenata</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ime i prezime pacijenta</th>
+                <th>Datum i vrijeme prijema</th>
+                <th>Ime i prezime ljekara</th>
+                <th>Hitno</th>
+                <th>Otkazano</th>
+            </tr>
+        </thead>
+        @foreach (var prijem in Model.Rows)
+        {
+            <tr>
+                <td>@prijem.ImePrezimePacijent</td>
+                <td>@prijem.DatumVrijemePrijema.ToShortDateString() @prijem.DatumVrijemePrijema.ToShortTimeString()</td>
+                <td>@prijem.ImePrezimeLjekar</td>
+                @if (prijem.IsHitno)
+                {
+                    <td>DA</td>
+
+                }
+                else
+                {
+                    <td>NE</td>
+                }
+                @if (prijem.IsOtkazano)
+                {
+                    <td>DA</td>
+
+                }
+                else
+                {
+                    <td>NE</td>
+                }
+
+            </tr>
+        }
+    </table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Nalazi za pacijente
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Rows)
+        {
+            if (item.NalazOpis != null)
+            {
+                <tr>
+                    <td><b>@item.ImePrezimePacijent</b></td>
+                </tr>
+                <tr>
+                    <td>@item.NalazOpis</td>
+                </tr>
+            }
+        }
+    </table>
+</body>
+</html>

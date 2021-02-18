@@ -1,0 +1,17 @@
+﻿@model Nalaz
+<div class="form-group">
+    <label class="font-weight-bold">Datum i vrijeme nalaza</label>
+    @Model.DatumVrijeme.ToShortDateString() @Model.DatumVrijeme.ToShortTimeString()
+</div>
+<div class="form-group">
+    <label asp-for="PacijentPrijem.Pacijent" class="font-weight-bold"></label>
+    @Model.PacijentPrijem.Pacijent.Ime @Model.PacijentPrijem.Pacijent.Prezime
+</div>
+<div class="form-group">
+    <label asp-for="PacijentPrijem.Ljekar" class="font-weight-bold"></label>
+    @Model.PacijentPrijem.Ljekar.Ime @Model.PacijentPrijem.Ljekar.Prezime
+</div>
+<div class="form-group">
+    <label class="font-weight-bold">Opis nalaza</label>
+    @Model.NalazOpis
+</div>

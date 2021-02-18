@@ -1,0 +1,46 @@
+﻿@model PrijemDodajVM
+@{
+    ViewData["Title"] = Model.ID==0 ? "Dodaj Prijem": "Izmijeni prijem";
+}
+<h2>@ViewData["Title"]</h2>
+<form asp-action="Snimi" method="post">
+    <input type="hidden" asp-for="ID" />
+    <div class="form-group">
+        <label asp-for="DatumVrijeme" class="font-weight-bold"></label>
+        @if (Model.ID == 0)
+        {
+            <input asp-for="DatumVrijeme" class="form-control" style="width:300px" min="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")">
+        }
+        else
+        {
+            <input asp-for="DatumVrijeme" class="form-control" style="width:300px" min="@Model.DatumVrijeme">
+        }
+        <span asp-validation-for="DatumVrijeme"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LjekarID" class="font-weight-bold"></label>
+        <select asp-for="LjekarID" asp-items="@Model.Ljekari" style="width:300px" class="form-control">
+            <option value="">
+                Odaberi
+            </option>
+        </select>
+        <span asp-validation-for="LjekarID"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PacijentID" class="font-weight-bold"></label>
+        <select asp-for="PacijentID" asp-items="@Model.Pacijenti" style="width:300px" class="form-control">
+            <option value="">
+                Odaberi
+            </option>
+        </select>
+        <span asp-validation-for="PacijentID"></span>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" asp-for="IsHitno">
+        <label class="form-check-label font-weight-bold" asp-for="IsHitno" ></label>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">
+        Snimi
+    </button>
+</form>
