@@ -1,2 +1,2 @@
 # HealthCare-App
-HealthCare is a web application made for small clinical purposes. 
+# Please use update-database in order to launch the app.
